@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import getCurrentUser from '../redux/actions';
 
-const Login = () => {
+const Login = ({ update }) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
@@ -39,6 +40,7 @@ const Login = () => {
       })
       .then(data => {
         dispatch(getCurrentUser(data));
+        update(true);
       })
       .catch(err => console.log(err.message));
   };
@@ -68,6 +70,10 @@ const Login = () => {
       </div>
     </form>
   );
+};
+
+Login.propTypes = {
+  update: PropTypes.func.isRequired,
 };
 
 export default Login;
