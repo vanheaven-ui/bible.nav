@@ -38,7 +38,6 @@ const Login = () => {
         throw Error('Could not login');
       })
       .then(data => {
-        console.log(data);
         dispatch(getCurrentUser(data));
       })
       .catch(err => console.log(err.message));
