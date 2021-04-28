@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import getCurrentUser from '../redux/actions';
 
 const Login = () => {
   const [password, setPassword] = useState('');
@@ -8,6 +10,7 @@ const Login = () => {
   const [signingin, setSigningin] = useState(false);
 
   const hist = useHistory();
+  const dispatch = useDispatch();
 
   const loginParams = {
     username,
@@ -30,7 +33,13 @@ const Login = () => {
         if (res.ok) {
           console.log('Log in successful!');
           hist.push('/');
+          return res.json();
         }
+        throw Error('Could not login');
+      })
+      .then(data => {
+        console.log(data);
+        dispatch(getCurrentUser(data));
       })
       .catch(err => console.log(err.message));
   };
