@@ -1,4 +1,4 @@
-import { CURRENT_USER } from './actionTypes';
+import { CURRENT_USER, GET_CHAPTERS } from './actionTypes';
 
 const getCurrentUser = user => (
   {
@@ -7,4 +7,11 @@ const getCurrentUser = user => (
   }
 );
 
-export default getCurrentUser;
+const getChapters = chapters => (
+  {
+    type: GET_CHAPTERS,
+    payload: chapters,
+  }
+);
+
+export { getCurrentUser, getChapters };
