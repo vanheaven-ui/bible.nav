@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { BASE_URL, BOOKS_URL } from '../constants';
 import fetchData from '../data/apiRequests';
+import { getChapters } from '../redux/actions';
 
 function App() {
   // get currently logged user from redux store after login
   const currentUser = useSelector(state => state.user);
+
+  // useHistory hook to route the different components
+  const hist = useHistory();
+
+  // useDispatch hook to disptach actions to the Redux store
+  const dispatch = useDispatch();
 
   // Variables for books of the bible
   const [newTestament, setNewTestament] = useState([]);
@@ -15,10 +23,6 @@ function App() {
 
   // variables to show chapters
   const [showChapters, setShowChapters] = useState(false);
-  const [chapters, setChapters] = useState([]);
-
-  console.log(chapters);
-  console.log(showChapters);
 
   // useEffect hook to fetch data only once when component mounts
   useEffect(() => {
@@ -50,12 +54,13 @@ function App() {
 
   // Function to fetch chapters of each book
   const fetchChapters = e => {
-    const { id } = e.target;
-    fetchData(`${BASE_URL}/books/${id}/chapters`)
+    console.log(`${BASE_URL}/books/${e.target.id}/chapters`);
+    fetchData(`${BASE_URL}/books/${e.target.id}/chapters`)
       .then(res => res.json())
       .then(chapters => {
-        setChapters(chapters.data);
+        dispatch(getChapters(chapters.data));
         setShowChapters(true);
+        hist.push('/book');
       });
   };
 
@@ -107,18 +112,6 @@ function App() {
           </div>
         )}
       </div>
-      { showChapters && (
-        <div className="chapter-list">
-          { chapters && chapters.map(chapter => (
-            <button
-              key={chapter.id}
-              type="button"
-            >
-              {chapter.number}
-            </button>
-          ))}
-        </div>
-      )}
     </>
   );
 }
