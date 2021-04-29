@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import getBibleBooks from '../data/apiRequests';
+import { BASE_URL, BOOKS_URL } from '../constants';
+import fetchData from '../data/apiRequests';
 
 function App() {
   // get currently logged user from redux store after login
@@ -12,11 +13,17 @@ function App() {
   const [showOld, setShowOld] = useState(false);
   const [showNew, setShowNew] = useState(false);
 
+  // variables to show chapters
+  const [showChapters, setShowChapters] = useState(false);
+  const [chapters, setChapters] = useState([]);
+
+  console.log(chapters);
+  console.log(showChapters);
+
   // useEffect hook to fetch data only once when component mounts
   useEffect(() => {
-    getBibleBooks().then(res => res.json())
+    fetchData(BOOKS_URL).then(res => res.json())
       .then(data => {
-        console.log(data.data.slice(53));
         setNewTestament(data.data.slice(0, 53));
         setOldTestament(data.data.slice(53));
       });
@@ -35,6 +42,21 @@ function App() {
     } else {
       setShowOld(false);
     }
+
+    if (showChapters) {
+      setShowChapters(false);
+    }
+  };
+
+  // Function to fetch chapters of each book
+  const fetchChapters = e => {
+    const { id } = e.target;
+    fetchData(`${BASE_URL}/books/${id}/chapters`)
+      .then(res => res.json())
+      .then(chapters => {
+        setChapters(chapters.data);
+        setShowChapters(true);
+      });
   };
 
   return (
@@ -51,26 +73,52 @@ function App() {
 
       <div className="book-list">
         { !showOld && (
-          <button type="button" name="new" onClick={e => handleClick(e)}>NEW TESTAMENT</button>
+          <button type="button" name="new" onClick={e => handleClick(e)}>OLD TESTAMENT</button>
         )}
         { !showNew && (
-          <button type="button" name="old" onClick={e => handleClick(e)}>OLD TESTAMENT</button>
+          <button type="button" name="old" onClick={e => handleClick(e)}>NEW TESTAMENT</button>
         )}
         { showNew && (
           <div className="new">
-            { newTestament && newTestament.map(book => (
-              <button type="button" key={book.id}>{book.name}</button>
+            { newTestament.length > 0 && newTestament.map(book => (
+              <button
+                type="button"
+                id={book.id}
+                key={book.id}
+                onClick={e => fetchChapters(e)}
+              >
+                {book.name}
+              </button>
             ))}
           </div>
         )}
         { showOld && (
           <div className="old">
-            { oldTestament && oldTestament.map(book => (
-              <button type="button" key={book.id}>{book.name}</button>
+            { oldTestament.length > 0 && oldTestament.map(book => (
+              <button
+                type="button"
+                id={book.id}
+                key={book.id}
+                onClick={e => fetchChapters(e)}
+              >
+                {book.name}
+              </button>
             ))}
           </div>
         )}
       </div>
+      { showChapters && (
+        <div className="chapter-list">
+          { chapters && chapters.map(chapter => (
+            <button
+              key={chapter.id}
+              type="button"
+            >
+              {chapter.number}
+            </button>
+          ))}
+        </div>
+      )}
     </>
   );
 }
