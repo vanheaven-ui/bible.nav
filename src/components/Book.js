@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import chaptersURL from '../constants';
 import fetchData from '../data/apiRequests';
 import { getChapterID, getVerses } from '../redux/actions';
-import { getVerseNumbers } from '../redux/reducers/selectors';
+import { getVerseNumbers } from '../redux/selectors';
 
 const Book = () => {
   // Get chapters from Redux store using useSelector hook

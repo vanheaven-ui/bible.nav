@@ -1,9 +1,6 @@
-// import { useEffect } from 'react';
-// import { useSelector } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getVerse } from '../redux/reducers/selectors';
-// import fetchData from '../data/apiRequests';
+import { getVerse } from '../redux/selectors';
 
 const Verse = () => {
   const { id, verse } = useParams();
