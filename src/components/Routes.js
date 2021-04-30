@@ -25,10 +25,10 @@ const Routes = () => {
         <Route path="/login">
           <Login update={setLoggedIn} />
         </Route>
-        <Route path="/book">
+        <Route exact path="/books/:id">
           <Book />
         </Route>
-        <Route path="/verse/:id">
+        <Route path="/books/:id/verses/:verse">
           <Verse />
         </Route>
       </Switch>
