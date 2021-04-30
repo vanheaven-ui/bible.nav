@@ -1,4 +1,6 @@
-import { CURRENT_USER, GET_CHAPTERS } from './actionTypes';
+import {
+  CURRENT_USER, GET_CHAPTERS, GET_CHAPTER_ID, GET_VERSES,
+} from './actionTypes';
 
 const getCurrentUser = user => (
   {
@@ -14,4 +16,20 @@ const getChapters = chapters => (
   }
 );
 
-export { getCurrentUser, getChapters };
+const getVerses = verses => (
+  {
+    type: GET_VERSES,
+    payload: verses,
+  }
+);
+
+const getChapterID = id => (
+  {
+    type: GET_CHAPTER_ID,
+    id,
+  }
+);
+
+export {
+  getCurrentUser, getChapters, getVerses, getChapterID,
+};
