@@ -1,5 +1,5 @@
 import {
-  CURRENT_USER, GET_CHAPTERS, GET_CHAPTER_ID, GET_VERSES,
+  CURRENT_USER, GET_BOOK_NAME, GET_CHAPTERS, GET_CHAPTER_ID, GET_CHAPTER_NUM, GET_VERSES,
 } from './actionTypes';
 
 const getCurrentUser = user => (
@@ -30,6 +30,20 @@ const getChapterID = id => (
   }
 );
 
+const getBookName = name => (
+  {
+    type: GET_BOOK_NAME,
+    name,
+  }
+);
+
+const getChapterNum = num => (
+  {
+    type: GET_CHAPTER_NUM,
+    num,
+  }
+);
+
 export {
-  getCurrentUser, getChapters, getVerses, getChapterID,
+  getCurrentUser, getChapters, getVerses, getChapterID, getBookName, getChapterNum,
 };
