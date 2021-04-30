@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { BASE_URL, BOOKS_URL } from '../constants';
 import fetchData from '../data/apiRequests';
-import { getChapters } from '../redux/actions';
+import { getBookName, getChapters } from '../redux/actions';
 
 function App() {
   // get currently logged user from redux store after login
@@ -28,8 +28,8 @@ function App() {
   useEffect(() => {
     fetchData(BOOKS_URL).then(res => res.json())
       .then(data => {
-        setNewTestament(data.data.slice(0, 53));
-        setOldTestament(data.data.slice(53));
+        setOldTestament(data.data.slice(0, 53));
+        setNewTestament(data.data.slice(53));
       });
   }, []);
 
@@ -54,7 +54,7 @@ function App() {
 
   // Function to fetch chapters of each book
   const fetchChapters = e => {
-    console.log(`${BASE_URL}/books/${e.target.id}/chapters`);
+    dispatch(getBookName(e.target.name));
     fetchData(`${BASE_URL}/books/${e.target.id}/chapters`)
       .then(res => res.json())
       .then(chapters => {
@@ -78,15 +78,16 @@ function App() {
 
       <div className="book-list">
         { !showOld && (
-          <button type="button" name="new" onClick={e => handleClick(e)}>OLD TESTAMENT</button>
+          <button type="button" name="new" onClick={e => handleClick(e)}>NEW TESTAMENT</button>
         )}
         { !showNew && (
-          <button type="button" name="old" onClick={e => handleClick(e)}>NEW TESTAMENT</button>
+          <button type="button" name="old" onClick={e => handleClick(e)}>OLD TESTAMENT</button>
         )}
         { showNew && (
           <div className="new">
             { newTestament.length > 0 && newTestament.map(book => (
               <button
+                name={book.name}
                 type="button"
                 id={book.id}
                 key={book.id}
@@ -101,6 +102,7 @@ function App() {
           <div className="old">
             { oldTestament.length > 0 && oldTestament.map(book => (
               <button
+                name={book.name}
                 type="button"
                 id={book.id}
                 key={book.id}
