@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import chaptersURL from '../constants';
 import fetchData from '../data/apiRequests';
-import { getChapterID, getVerses } from '../redux/actions';
+import { getChapterID, getChapterNum, getVerses } from '../redux/actions';
 import { getVerseNumbers } from '../redux/selectors';
 
 const Book = () => {
@@ -25,10 +25,12 @@ const Book = () => {
 
   // Method to load verses on Click
   const loadVerse = e => {
+    dispatch(getChapterNum(e.target.textContent));
     dispatch(getChapterID(e.target.id));
     fetchData(chaptersURL(e.target.id))
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         setVerses(getVerseNumbers(data.data.content));
         dispatch(getVerses(data.data.content));
       });
