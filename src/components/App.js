@@ -60,7 +60,7 @@ function App() {
       .then(chapters => {
         dispatch(getChapters(chapters.data));
         setShowChapters(true);
-        hist.push('/book');
+        hist.push(`/books/${e.target.id}`);
       });
   };
 
