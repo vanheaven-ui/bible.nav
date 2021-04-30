@@ -7,8 +7,10 @@ const Verse = () => {
   console.log(id, verse);
 
   // Grab the chapterId and the data from Redux store
-  const chapterID = useSelector(state => state.chapterId);
+  const { chapterID, chapterNum } = useSelector(state => state.chapterId);
   const details = useSelector(state => state.verses);
+  const bookName = useSelector(state => state.name);
+  console.log(bookName, chapterNum);
 
   // Create a verse id to match against the data
   const verseID = `${chapterID}.${verse}`;
@@ -20,7 +22,16 @@ const Verse = () => {
   return (
     <div className="verse">
       Working
-      <h2>{verseID}</h2>
+      <h2>{`${bookName}`}</h2>
+      <h3>
+        Chapter:
+        {' '}
+        {chapterNum}
+        {' '}
+        Verse:
+        {' '}
+        {verse}
+      </h3>
       <p>{getVerse(details, verseID)}</p>
     </div>
   );
