@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getCurrentUser } from '../redux/actions';
 
@@ -46,29 +46,34 @@ const Login = ({ update }) => {
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </div>
+    <section>
+      <form onSubmit={e => handleSubmit(e)}>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
 
-      <div className="actions">
-        { !signingin && <button type="submit">Login</button> }
-        { signingin && <button type="button" disabled>Logging in..</button> }
-      </div>
-    </form>
+        <div className="actions">
+          { !signingin && <button type="submit">Login</button> }
+          { signingin && <button type="button" disabled>Logging in..</button> }
+        </div>
+      </form>
+      Do not have an account?
+      {' '}
+      <Link to="/signup">Register Here</Link>
+    </section>
   );
 };
 

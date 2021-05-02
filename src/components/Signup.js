@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Signup = () => {
   const [username, setUsername] = useState('');
@@ -37,44 +37,49 @@ const Signup = () => {
   };
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-        />
-      </div>
-      <div className="form-group">
-        <input
-          type="text"
-          placeholder="Type password again"
-          value={passwordAgain}
-          onChange={e => setPasswordAgain(e.target.value)}
-        />
-      </div>
-      <div className="actions">
-        { !registering && <button type="submit">Register</button> }
-        { registering && <button type="button" disabled>Registering...</button> }
-      </div>
-    </form>
+    <section className="signup">
+      <form onSubmit={e => handleSubmit(e)}>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={e => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            placeholder="Type password again"
+            value={passwordAgain}
+            onChange={e => setPasswordAgain(e.target.value)}
+          />
+        </div>
+        <div className="actions">
+          { !registering && <button type="submit">Register</button> }
+          { registering && <button type="button" disabled>Registering...</button> }
+        </div>
+      </form>
+      Already registered?
+      {' '}
+      <Link to="/login">Login Here</Link>
+    </section>
   );
 };
 
