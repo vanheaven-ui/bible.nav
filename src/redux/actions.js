@@ -1,5 +1,11 @@
 import {
-  CURRENT_USER, GET_BOOK_NAME, GET_CHAPTERS, GET_CHAPTER_ID, GET_CHAPTER_NUM, GET_VERSES,
+  CURRENT_USER,
+  GET_BOOK_NAME,
+  GET_CHAPTERS,
+  GET_CHAPTER_ID,
+  GET_CHAPTER_NUM,
+  GET_VERSES,
+  REMOVE_USER,
 } from './actionTypes';
 
 const getCurrentUser = user => (
@@ -8,6 +14,10 @@ const getCurrentUser = user => (
     payload: user,
   }
 );
+
+const removeUser = {
+  type: REMOVE_USER,
+};
 
 const getChapters = chapters => (
   {
@@ -45,5 +55,5 @@ const getChapterNum = num => (
 );
 
 export {
-  getCurrentUser, getChapters, getVerses, getChapterID, getBookName, getChapterNum,
+  getCurrentUser, getChapters, getVerses, getChapterID, getBookName, getChapterNum, removeUser,
 };

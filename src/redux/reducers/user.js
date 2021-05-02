@@ -1,9 +1,17 @@
-import { CURRENT_USER } from '../actionTypes';
+import { CURRENT_USER, REMOVE_USER } from '../actionTypes';
 
 const userReducer = (state = {}, action) => {
+  console.log(state);
   switch (action.type) {
     case CURRENT_USER:
       return action.payload;
+    case REMOVE_USER:
+      console.log(state);
+      return {
+        ...state,
+        user: {},
+        jwt: '',
+      };
     default:
       return state;
   }
