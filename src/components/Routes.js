@@ -4,6 +4,7 @@ import App from './App';
 import Book from './Book';
 import Navbar from './common/Navbar';
 import LoggedInNavbar from './common/NavbarLogin';
+import Favorites from './Favorites';
 import Login from './Login';
 import Signup from './Signup';
 import Verse from './Verse';
@@ -11,10 +12,16 @@ import Verse from './Verse';
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  const handleLogin = () => {
+    setLoggedIn(!loggedIn);
+  };
+
   return (
     <Router>
-      { loggedIn && <LoggedInNavbar /> }
-      { !loggedIn && <Navbar /> }
+      <header>
+        { loggedIn && <LoggedInNavbar status={handleLogin} /> }
+        { !loggedIn && <Navbar /> }
+      </header>
       <Switch>
         <Route exact path="/">
           <App />
@@ -23,13 +30,16 @@ const Routes = () => {
           <Signup />
         </Route>
         <Route path="/login">
-          <Login update={setLoggedIn} />
+          <Login update={handleLogin} />
         </Route>
         <Route exact path="/books/:id">
-          <Book />
+          <Book login={loggedIn} />
         </Route>
         <Route path="/books/:id/verses/:verse">
           <Verse />
+        </Route>
+        <Route path="/favorites">
+          <Favorites />
         </Route>
       </Switch>
     </Router>
