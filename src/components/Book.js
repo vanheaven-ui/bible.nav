@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import chaptersURL from '../constants';
@@ -6,9 +7,14 @@ import fetchData from '../data/apiRequests';
 import { getChapterID, getChapterNum, getVerses } from '../redux/actions';
 import { getVerseNumbers } from '../redux/selectors';
 
-const Book = () => {
+const Book = ({ login }) => {
+  console.log(login);
   // Get chapters from Redux store using useSelector hook
   const chapters = useSelector(state => state.chapter);
+  const user = useSelector(state => state.user);
+  if (Object.keys(user).length > 0) {
+    console.log(user.user.username);
+  }
 
   // useParams to get the ID of the Chapter
   const { id } = useParams();
@@ -36,9 +42,13 @@ const Book = () => {
       });
   };
 
-  // get specific verse on click
+  // get specific verse on click but login first
   const getVerse = e => {
-    hist.push(`/books/${id}/verses/${e.target.id}`);
+    if (Object.keys(user).length > 0 && login) {
+      hist.push(`/books/${id}/verses/${e.target.id}`);
+    } else {
+      hist.push('/login');
+    }
   };
 
   return (
@@ -77,6 +87,10 @@ const Book = () => {
       </div>
     </section>
   );
+};
+
+Book.propTypes = {
+  login: PropTypes.bool.isRequired,
 };
 
 export default Book;
