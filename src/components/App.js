@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { BASE_URL, BOOKS_URL } from '../constants';
 import fetchData from '../data/apiRequests';
 import { getBookName, getChapters } from '../redux/actions';
 
 function App() {
-  // get currently logged user from redux store after login
-  const currentUser = useSelector(state => state.user);
-
   // useHistory hook to route the different components
   const hist = useHistory();
 
@@ -67,23 +64,14 @@ function App() {
   return (
     <>
       <div className="App">
-        { Object.keys(currentUser).length > 0 && (
-        <p>
-          Logged in:
-          {' '}
-          {currentUser.user.username}
-        </p>
-        )}
-      </div>
-
-      <div className="book-list">
-        { !showOld && (
+        <div className="book-list">
+          { !showOld && (
           <button type="button" name="new" onClick={e => handleClick(e)}>NEW TESTAMENT</button>
-        )}
-        { !showNew && (
+          )}
+          { !showNew && (
           <button type="button" name="old" onClick={e => handleClick(e)}>OLD TESTAMENT</button>
-        )}
-        { showNew && (
+          )}
+          { showNew && (
           <div className="new">
             { newTestament.length > 0 && newTestament.map(book => (
               <button
@@ -97,8 +85,8 @@ function App() {
               </button>
             ))}
           </div>
-        )}
-        { showOld && (
+          )}
+          { showOld && (
           <div className="old">
             { oldTestament.length > 0 && oldTestament.map(book => (
               <button
@@ -112,8 +100,10 @@ function App() {
               </button>
             ))}
           </div>
-        )}
+          )}
+        </div>
       </div>
+
     </>
   );
 }
