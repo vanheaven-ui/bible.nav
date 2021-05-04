@@ -1,0 +1,25 @@
+.book-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px  0;
+  height: 60vh;
+}
+
+.chapter-list > button,
+.verse-list > button {
+  padding: 0 10px;
+  position: relative;
+}
+
+.chapter-list > button::after,
+.verse-list > button::after {
+  background: #f4f4f4;
+  border-bottom: 13px solid transparent;
+  border-left: 10px solid #1dbb90;
+  border-top: 13px solid transparent;
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+}

@@ -1,5 +1,6 @@
 .navbar {
-  background-color: #1f5156;
+  /* background-color: #1f5156; */
+  background-color: rgba(0, 0, 0, 0.5);
   height: 80px;
   display: flex;
   justify-content: center;
@@ -114,5 +115,7 @@
     font-size: 1.8rem;
     cursor: pointer;
     color: #ffdd40;
+    background-color: transparent;
+    padding: 0 10px;
   }
 }
