@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { LastLocationProvider } from 'react-router-last-location';
 import App from './App';
 import Book from './Book';
+import Footer from './common/Footer';
 import Navbar from './common/Navbar';
 import LoggedInNavbar from './common/NavbarLogin';
 import Favorites from './Favorites';
@@ -18,30 +20,33 @@ const Routes = () => {
 
   return (
     <Router>
-      <header>
-        { loggedIn && <LoggedInNavbar status={handleLogin} /> }
-        { !loggedIn && <Navbar /> }
-      </header>
-      <Switch>
-        <Route exact path="/">
-          <App />
-        </Route>
-        <Route path="/signup">
-          <Signup />
-        </Route>
-        <Route path="/login">
-          <Login update={handleLogin} />
-        </Route>
-        <Route exact path="/books/:id">
-          <Book login={loggedIn} />
-        </Route>
-        <Route path="/books/:id/verses/:verse">
-          <Verse />
-        </Route>
-        <Route path="/favorites">
-          <Favorites />
-        </Route>
-      </Switch>
+      <LastLocationProvider>
+        <header>
+          { loggedIn && <LoggedInNavbar status={handleLogin} /> }
+          { !loggedIn && <Navbar /> }
+        </header>
+        <Switch>
+          <Route exact path="/">
+            <App />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/login">
+            <Login update={handleLogin} />
+          </Route>
+          <Route exact path="/books/:id">
+            <Book login={loggedIn} />
+          </Route>
+          <Route path="/books/:id/verses/:verse">
+            <Verse />
+          </Route>
+          <Route path="/favorites">
+            <Favorites />
+          </Route>
+        </Switch>
+        <Footer />
+      </LastLocationProvider>
     </Router>
   );
 };
