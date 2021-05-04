@@ -1,14 +1,24 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useHistory, Link,
+} from 'react-router-dom';
+import { useLastLocation } from 'react-router-last-location';
 import PropTypes from 'prop-types';
 import { getCurrentUser } from '../redux/actions';
+import '../styles/login.css';
 
 const Login = ({ update }) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
 
+  const verseID = useSelector(state => state.verses.id);
+  console.log(verseID);
+
   const [signingin, setSigningin] = useState(false);
+
+  const lastLocation = useLastLocation();
+  console.log(lastLocation);
 
   const hist = useHistory();
   const dispatch = useDispatch();
@@ -33,7 +43,12 @@ const Login = ({ update }) => {
         setSigningin(false);
         if (res.ok) {
           console.log('Log in successful!');
-          hist.push('/');
+          if (lastLocation.pathname.indexOf('books') !== -1) {
+            const bookID = lastLocation.pathname.split('/')[2];
+            hist.push(`/books/${bookID}/verses/${verseID}`);
+          } else {
+            hist.push('/');
+          }
           return res.json();
         }
         throw Error('Could not login');
@@ -46,7 +61,7 @@ const Login = ({ update }) => {
   };
 
   return (
-    <section>
+    <section className="login">
       <form onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input
