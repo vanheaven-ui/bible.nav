@@ -4,6 +4,7 @@ import {
   GET_CHAPTERS,
   GET_CHAPTER_ID,
   GET_CHAPTER_NUM,
+  GET_VERSEID,
   GET_VERSES,
   REMOVE_USER,
 } from './actionTypes';
@@ -33,6 +34,13 @@ const getVerses = verses => (
   }
 );
 
+const getVerseId = id => (
+  {
+    type: GET_VERSEID,
+    id,
+  }
+);
+
 const getChapterID = id => (
   {
     type: GET_CHAPTER_ID,
@@ -55,5 +63,12 @@ const getChapterNum = num => (
 );
 
 export {
-  getCurrentUser, getChapters, getVerses, getChapterID, getBookName, getChapterNum, removeUser,
+  getCurrentUser,
+  getChapters,
+  getVerses,
+  getChapterID,
+  getBookName,
+  getChapterNum,
+  removeUser,
+  getVerseId,
 };
