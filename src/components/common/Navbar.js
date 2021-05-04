@@ -18,30 +18,31 @@ const Navbar = () => {
         >
           Bible.nav
         </Link>
-        <div className={click ? 'nav-menu active' : 'nav-menu'}>
-          <NavLink
-            to="/signup"
-            activeClassName="active"
-            className="nav-links"
-            onClick={handleClick}
-          >
-            Signup
-          </NavLink>
-          {' '}
-          ||
-          <NavLink
-            to="/login"
-            activeClassName="active"
-            className="nav-links"
-            onClick={handleClick}
-          >
-            Login
-          </NavLink>
-        </div>
-        <div className="nav-icon">
-          {/* <FontAwesomeIcon icon={['fas', 'times']} /> */}
-          <button type="button" onClick={handleClick}><i className="fas fa-times" aria-label="times" /></button>
-        </div>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className="nav-item">
+            <NavLink
+              to="/signup"
+              activeClassName="active"
+              className="nav-links"
+              onClick={handleClick}
+            >
+              Signup
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink
+              to="/login"
+              activeClassName="active"
+              className="nav-links"
+              onClick={handleClick}
+            >
+              Login
+            </NavLink>
+          </li>
+        </ul>
+        <button className="nav-icon" type="button" onClick={handleClick}>
+          <i className={click ? 'fas fa-times' : 'fas fa-bars'} aria-label="times" />
+        </button>
       </div>
     </nav>
   );

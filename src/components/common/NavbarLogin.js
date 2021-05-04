@@ -1,11 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
 import { removeUser } from '../../redux/actions';
+import '../../styles/Navbar.css';
 
 const LoggedInNavbar = ({ status }) => {
   // Use useDispatch hook to send actions to redux store
   const dispatch = useDispatch();
+
+  // Variables to toggle navbar display
+  const [click, setClick] = useState();
 
   // get current user from redux store
   const currentUser = useSelector(state => state.user);
@@ -16,19 +21,30 @@ const LoggedInNavbar = ({ status }) => {
     status(false);
   };
 
+  const handleClick = () => setClick(!click);
+
   return (
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">Bible.nav</Link>
-        <div className="username" style={{ margin: '0 auto' }}>
-          <small>Welcome</small>
-          {' '}
-          {currentUser.user.username}
+        <div className={click ? 'nav-menu active' : 'nav-menu'}>
+          <div className="username" style={{ margin: '0 auto' }}>
+            <small>Welcome</small>
+            {' '}
+            {currentUser.user.username}
+          </div>
+          <ul>
+            <li className="nav-item">
+              <NavLink to="/favorites" activeClassName="active" className="nav-links">Favourites</NavLink>
+            </li>
+            <li className="nav-item">
+              <Link to="/" className="nav-links" onClick={handleLogout}>Logout</Link>
+            </li>
+          </ul>
         </div>
-        <div className="links">
-          <NavLink to="/favorites" activeClassName="active" className="nav-links">Favourites</NavLink>
-          <Link to="/" className="nav-links" onClick={handleLogout}>Logout</Link>
-        </div>
+        <button className="nav-icon" type="button" onClick={handleClick}>
+          <i className={click ? 'fas fa-times' : 'fas fa-bars'} aria-label="times" />
+        </button>
       </div>
     </nav>
   );
