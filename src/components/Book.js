@@ -35,7 +35,6 @@ const Book = ({ login }) => {
     dispatch(getChapterNum(e.target.textContent));
     dispatch(getChapterID(e.target.id));
     fetchData(chaptersURL(e.target.id))
-      .then(res => res.json())
       .then(data => {
         setVerses(getVerseNumbers(data.data.content));
         dispatch(getVerses(data.data.content));
