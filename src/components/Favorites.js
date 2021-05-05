@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import styles from '../styles/favorites.module.css';
 
 const Favorites = () => {
   const [favorites] = useState([]);
   return (
-    <section className="favorites">
+    <section className={styles.favorites}>
       <h2>Your Favorites</h2>
       { favorites.length > 0 ? (favorites.map(favorite => (
         <>
