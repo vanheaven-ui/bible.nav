@@ -43,12 +43,6 @@ const Login = ({ update }) => {
         setSigningin(false);
         if (res.ok) {
           console.log('Log in successful!');
-          if (lastLocation.pathname.indexOf('books') !== -1) {
-            const bookID = lastLocation.pathname.split('/')[2];
-            hist.push(`/books/${bookID}/verses/${verseID}`);
-          } else {
-            hist.push('/');
-          }
           return res.json();
         }
         throw Error('Could not login');
@@ -56,12 +50,19 @@ const Login = ({ update }) => {
       .then(data => {
         dispatch(getCurrentUser(data));
         update(true);
+        if (lastLocation.pathname.indexOf('books') !== -1) {
+          const bookID = lastLocation.pathname.split('/')[2];
+          hist.push(`/books/${bookID}/verses/${verseID}`);
+        } else {
+          hist.push('/');
+        }
       })
       .catch(err => console.log(err.message));
   };
 
   return (
     <section className="login">
+      <h3 className="h5">Login into Bible.nav and manage your favorites</h3>
       <form onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input
@@ -81,13 +82,15 @@ const Login = ({ update }) => {
         </div>
 
         <div className="actions">
-          { !signingin && <button type="submit">Login</button> }
-          { signingin && <button type="button" disabled>Logging in..</button> }
+          { !signingin && <button type="submit" className="block-btn">Login</button> }
+          { signingin && <button type="button" disabled className="block-btn">Logging in..</button> }
         </div>
       </form>
-      Do not have an account?
-      {' '}
-      <Link to="/signup">Register Here</Link>
+      <div className="other-action">
+        Do not have an account?
+        {' '}
+        <Link to="/signup">Register Here</Link>
+      </div>
     </section>
   );
 };
