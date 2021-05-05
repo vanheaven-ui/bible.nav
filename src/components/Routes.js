@@ -21,6 +21,7 @@ const Routes = () => {
   return (
     <Router>
       <LastLocationProvider>
+        <div className="dark-overlay" />
         <header>
           { loggedIn && <LoggedInNavbar status={handleLogin} /> }
           { !loggedIn && <Navbar /> }
