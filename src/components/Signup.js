@@ -39,6 +39,7 @@ const Signup = () => {
 
   return (
     <section className="signup">
+      <h3 className="h5">Register here to have Bible.nav priviledges</h3>
       <form onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input
@@ -73,13 +74,15 @@ const Signup = () => {
           />
         </div>
         <div className="actions">
-          { !registering && <button type="submit">Register</button> }
-          { registering && <button type="button" disabled>Registering...</button> }
+          { !registering && <button type="submit" className="block-btn">Register</button> }
+          { registering && <button type="button" disabled className="block-btn">Registering...</button> }
         </div>
       </form>
-      Already registered?
-      {' '}
-      <Link to="/login">Login Here</Link>
+      <div className="other-action">
+        Already registered?
+        {' '}
+        <Link to="/login">Login Here</Link>
+      </div>
     </section>
   );
 };
