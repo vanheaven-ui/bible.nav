@@ -65,7 +65,7 @@ With the installations above complete, you are set to locally use the code. Foll
 
 - Run `npm start` to start webpack-dev-server.
 - If everything worked well, the browser should automatically render the calculator on `http://localhost:3000/`.
-- Now you can get building your application without waiting for ages for `create-react-app` to install all the packages.
+- Now you can get to building your application without waiting for ages for `create-react-app` to install all the packages.
 
 ## ✒️ Author <a name = "author"></a>
 
