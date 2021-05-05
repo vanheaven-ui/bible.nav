@@ -3,19 +3,32 @@
   padding-top: 30px;
 }
 
-.dark-overlay {
-  position: absolute;
-  top: 90px;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
 .book-list {
   background-color: azure;
   text-align: center;
   padding: 30px 0;
+}
+
+button[name=new],
+button[name=old] {
+  padding: 8px 22px;
+  border-radius: 5px;
+  transition: transform 0.5s ease-in-out;
+}
+
+button[name=new] {
+  margin-right: 5px;
+}
+
+button[name=old] {
+  margin-left: 5px;
+}
+
+button[name=new]:hover,
+button[name=old]:hover {
+  transform: scale(1.1);
+  border: 2px solid#ec5200;
+  color: #ec5200;
 }
 
 #bible-sections {
@@ -25,8 +38,4 @@
 .favorites-pitch {
  text-align: center;
  padding: 20px 0;
-}
-
-#bible-sections {
-
 }
