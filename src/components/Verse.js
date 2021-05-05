@@ -53,7 +53,12 @@ const Verse = () => {
         Authorization: `${token}`,
         credentials: 'include',
       },
-      body: JSON.stringify(scripture),
+      body: JSON.stringify({
+        book_name: scripture.Book,
+        chapter_num: scripture.Chapter,
+        verse_num: scripture.Verse,
+        verse: scripture.Output,
+      }),
     })
       .then(res => res.json())
       .then(data => console.log(data))
