@@ -51,7 +51,7 @@ const Verse = () => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-        withCredentials: true,
+        credentials: 'include',
       },
       body: JSON.stringify(scripture),
     })
