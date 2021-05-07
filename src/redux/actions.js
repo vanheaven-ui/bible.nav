@@ -4,8 +4,10 @@ import {
   GET_CHAPTERS,
   GET_CHAPTER_ID,
   GET_CHAPTER_NUM,
+  GET_FAVORITES,
   GET_VERSEID,
   GET_VERSES,
+  REMOVE_FAVORITE,
   REMOVE_USER,
 } from './actionTypes';
 
@@ -62,6 +64,20 @@ const getChapterNum = num => (
   }
 );
 
+const getFavorites = favorites => (
+  {
+    type: GET_FAVORITES,
+    payload: favorites,
+  }
+);
+
+const removeFavorite = id => (
+  {
+    type: REMOVE_FAVORITE,
+    id,
+  }
+);
+
 export {
   getCurrentUser,
   getChapters,
@@ -71,4 +87,6 @@ export {
   getChapterNum,
   removeUser,
   getVerseId,
+  getFavorites,
+  removeFavorite,
 };

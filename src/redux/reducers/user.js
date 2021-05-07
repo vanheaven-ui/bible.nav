@@ -1,4 +1,6 @@
-import { CURRENT_USER, REMOVE_USER } from '../actionTypes';
+import {
+  CURRENT_USER, GET_FAVORITES, REMOVE_FAVORITE, REMOVE_USER,
+} from '../actionTypes';
 
 const userReducer = (state = {}, action) => {
   console.log(state);
@@ -11,6 +13,15 @@ const userReducer = (state = {}, action) => {
         ...state,
         user: {},
         jwt: '',
+      };
+    case GET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
+      };
+    case REMOVE_FAVORITE:
+      return {
+        ...state,
       };
     default:
       return state;
