@@ -82,7 +82,7 @@ function App() {
           <div className="hero-text">
             <Container>
               <Row>
-                <Col xs={{ span: 12, order: 'last' }} md={{ span: 6, order: 'first' }}>
+                <Col id="left-col" xs={{ span: 12, order: 'last' }} md={{ span: 6, order: 'first' }}>
                   <div className="left-hero">
                     <h2> Navigating the Bible simplified</h2>
                     <p>Your favorite bible verse is a login away</p>
@@ -97,18 +97,19 @@ function App() {
                     <h4>VERSE OF THE DAY:</h4>
                     <h2>{ref}</h2>
                   </div>
-                  <p>{VoD}</p>
+                  <p className="verse-of-day">{VoD}</p>
                 </Col>
               </Row>
             </Container>
           </div>
         </section>
         <section className="book-list">
-          <h2 className="text-primary">GET BOOKS OF THE BIBLE</h2>
+          <h2>GET BOOKS OF THE BIBLE</h2>
           <Container fluid id="bible-sections">
             <Row>
-              <Col xs={12} md={6}>
-                <p>Let us navigate the sections of the bible</p>
+              <Col xs={12} md={6} id="navigate">
+                <h4>Let us navigate the sections of the bible</h4>
+                <i className="fas fa-caret-right fa-3x" />
               </Col>
               <Col xs={12} md={6}>
                 { !showOld && (
@@ -152,7 +153,7 @@ function App() {
           </Container>
         </section>
         <section className="favorites-pitch">
-          <h3>Create your favorites</h3>
+          <h3>CREATE YOUR FAVORITES</h3>
           <p>Have your favorites in one place by registering or signing in</p>
           <div className="buttons">
             <button type="button" className="orange-button"><Link to="/signup">REGISTER</Link></button>

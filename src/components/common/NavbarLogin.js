@@ -27,21 +27,21 @@ const LoggedInNavbar = ({ status }) => {
     <nav className="navbar">
       <div className="nav-container">
         <Link to="/" className="nav-logo">Bible.nav</Link>
-        <div className={click ? 'nav-menu active' : 'nav-menu'}>
-          <div className="username" style={{ margin: '0 auto' }}>
-            <small>Welcome</small>
-            {' '}
-            {currentUser.user.username}
-          </div>
-          <ul>
-            <li className="nav-item">
-              <NavLink to="/favorites" activeClassName="active" className="nav-links">Favourites</NavLink>
-            </li>
-            <li className="nav-item">
-              <Link to="/" className="nav-links" onClick={handleLogout}>Logout</Link>
-            </li>
-          </ul>
-        </div>
+        <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+          <li className="nav-item">
+            <span>
+              <small>~/</small>
+              {' '}
+              {currentUser.user.username}
+            </span>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/favorites" activeClassName="active" className="nav-links">Favourites</NavLink>
+          </li>
+          <li className="nav-item">
+            <Link to="/" className="nav-links" onClick={handleLogout}>Logout</Link>
+          </li>
+        </ul>
         <button className="nav-icon" type="button" onClick={handleClick}>
           <i className={click ? 'fas fa-times' : 'fas fa-bars'} aria-label="times" />
         </button>

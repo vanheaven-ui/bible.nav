@@ -12,6 +12,7 @@ import {
 import { getVerseNumbers } from '../redux/selectors';
 
 const Book = ({ login }) => {
+  const [click, setClick] = useState(false);
   // Get chapters from Redux store using useSelector hook
   const chapters = useSelector(state => state.chapter);
   const user = useSelector(state => state.user);
@@ -36,6 +37,7 @@ const Book = ({ login }) => {
     dispatch(getChapterID(e.target.id));
     fetchData(chaptersURL(e.target.id))
       .then(data => {
+        setClick(!click);
         setVerses(getVerseNumbers(data.data.content));
         dispatch(getVerses(data.data.content));
       });
@@ -76,6 +78,7 @@ const Book = ({ login }) => {
             id={chapter.id}
             key={chapter.id}
             onClick={e => loadVerse(e)}
+            className={click ? 'activeBtn' : ''}
           >
             {chapter.number}
           </button>

@@ -6,10 +6,10 @@ import Book from './Book';
 import Footer from './common/Footer';
 import Navbar from './common/Navbar';
 import LoggedInNavbar from './common/NavbarLogin';
-import Favorites from './Favorites';
 import Login from './Login';
 import Signup from './Signup';
 import Verse from './Verse';
+import FavoritesList from '../containers/FavoritesList';
 
 const Routes = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -43,7 +43,7 @@ const Routes = () => {
             <Verse />
           </Route>
           <Route path="/favorites">
-            <Favorites />
+            <FavoritesList />
           </Route>
         </Switch>
         <Footer />

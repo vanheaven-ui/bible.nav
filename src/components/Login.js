@@ -5,12 +5,16 @@ import {
 } from 'react-router-dom';
 import { useLastLocation } from 'react-router-last-location';
 import PropTypes from 'prop-types';
-import { getCurrentUser } from '../redux/actions';
+import { getCurrentUser, getFavorites } from '../redux/actions';
 import '../styles/login.css';
+import fetchFavorites from '../data/fetchFavorites';
 
 const Login = ({ update }) => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+
+  // state variables to manage password type
+  const [passwordType, setPasswordType] = useState('password');
 
   const verseID = useSelector(state => state.verses.id);
   console.log(verseID);
@@ -26,6 +30,14 @@ const Login = ({ update }) => {
   const loginParams = {
     username,
     password,
+  };
+
+  const toggle = e => {
+    if (e.target.checked) {
+      setPasswordType('text');
+    } else if (!e.target.checked) {
+      setPasswordType('password');
+    }
   };
 
   const handleSubmit = e => {
@@ -45,12 +57,14 @@ const Login = ({ update }) => {
           console.log('Log in successful!');
           return res.json();
         }
-        throw Error('Could not login');
+        throw Error('Username or password is invalid');
       })
       .then(data => {
         dispatch(getCurrentUser(data));
+        const { jwt: token, user } = data;
+        fetchFavorites(user.id, token).then(data => dispatch(getFavorites(data)));
         update(true);
-        if (lastLocation.pathname.indexOf('books') !== -1) {
+        if (lastLocation.pathname !== '' && lastLocation.pathname.indexOf('books') !== -1) {
           const bookID = lastLocation.pathname.split('/')[2];
           hist.push(`/books/${bookID}/verses/${verseID}`);
         } else {
@@ -62,7 +76,7 @@ const Login = ({ update }) => {
 
   return (
     <section className="login">
-      <h3 className="h5">Login into Bible.nav and manage your favorites</h3>
+      <h3 className="h4">Login into Bible.nav and manage your favorites</h3>
       <form onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input
@@ -74,11 +88,16 @@ const Login = ({ update }) => {
         </div>
         <div className="form-group">
           <input
-            type="text"
+            type={passwordType}
             placeholder="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
+          <p className="show-hide">
+            <small>show password</small>
+            {' '}
+            <input type="checkbox" id="show-password" onClick={e => toggle(e)} />
+          </p>
         </div>
 
         <div className="actions">

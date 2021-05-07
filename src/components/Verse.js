@@ -6,24 +6,49 @@ import '../styles/verse.css';
 
 const Verse = () => {
   // Get route parameters using useParams hook
-  const { id, verse } = useParams();
+  const { verse } = useParams();
   const [text, setText] = useState('');
-  console.log(id, verse);
+
+  // state variables for favorites management
+  const [favoriteStatus, setFavoriteStatus] = useState(false);
+
+  console.log(favoriteStatus);
 
   // stte variables to manange verse
   const [scripture, setScripture] = useState({});
-  console.log(scripture);
+  const favorite = {
+    book_name: scripture.Book,
+    chapter_num: scripture.Chapter,
+    verse_num: scripture.Verse,
+    verse: scripture.Output,
+  };
+
+  console.log(favorite);
 
   // Grab the chapterId and the data from Redux store
-  const { chapterID, chapterNum } = useSelector(state => state.chapterId);
+  const { chapterNum } = useSelector(state => state.chapterId);
   const bookName = useSelector(state => state.name);
-  const { jwt: token, user } = useSelector(state => state.user);
-  console.log(bookName, chapterNum);
-  const userId = user.id;
-  console.log(token);
+  const { jwt: token, user, favorites } = useSelector(state => state.user);
+  let userId;
+  user ? userId = user.id : userId = ''; // eslint-disable-line
+  console.log(userId);
 
   // Get verse chosen from external api
   useEffect(() => {
+    if (favorites) {
+      favorites.favorites.forEach(obj => {
+        if (obj.book_name === favorite.book_name
+            && favorite.chapter_num === obj.chapter_num
+            && favorite.verse_num === obj.verse_num
+            && favorite.verse === obj.verse) {
+          setFavoriteStatus(true);
+          console.log('Forcing a false');
+          console.log('Hmm1');
+          console.log('Rerendering');
+        }
+      });
+    }
+
     fetch(`${RAPID_API_BASE}?Verse=${verse}&chapter=${chapterNum}&Book=${bookName}`, {
       method: 'GET',
       headers: {
@@ -37,11 +62,7 @@ const Verse = () => {
         setScripture(data);
       })
       .catch(err => console.error(err));
-  }, []);
-
-  // Create a verse id to match against the data
-  const verseID = `${chapterID}.${verse}`;
-  console.log(verseID);
+  }, [favoriteStatus]);
 
   // Add to favorites on click
   const addFavorite = () => {
@@ -53,12 +74,7 @@ const Verse = () => {
         Authorization: `${token}`,
         credentials: 'include',
       },
-      body: JSON.stringify({
-        book_name: scripture.Book,
-        chapter_num: scripture.Chapter,
-        verse_num: scripture.Verse,
-        verse: scripture.Output,
-      }),
+      body: JSON.stringify(favorite),
     })
       .then(res => res.json())
       .then(data => console.log(data))
@@ -67,7 +83,6 @@ const Verse = () => {
 
   return (
     <section className="verse">
-      <div id="google_translate_element" />
       <h2>{`${bookName}`}</h2>
       <h3>
         Chapter:
@@ -77,14 +92,25 @@ const Verse = () => {
         Verse:
         {' '}
         {verse}
+        {' '}
+        { favoriteStatus && (
+          <i className="fas fa-star" style={{ color: '#e27c08', marginLeft: 10 }} />
+        )}
       </h3>
-      <p>{text}</p>
-      <button
-        type="button"
-        onClick={() => addFavorite()}
-      >
-        Add to favourites(Should use a star)
-      </button>
+      <p>
+        <span>{verse}</span>
+        {' '}
+        {text}
+      </p>
+      { !favoriteStatus && (
+        <button
+          type="button"
+          onClick={() => addFavorite()}
+        >
+          Add to favourites
+          <i className="fas fa-star" style={{ color: '#e27c08', marginLeft: 10 }} />
+        </button>
+      )}
     </section>
   );
 };

@@ -8,6 +8,9 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [passwordAgain, setPasswordAgain] = useState('');
 
+  // state variables to manage password type
+  const [passwordType, setPasswordType] = useState('password');
+
   const hist = useHistory();
 
   const [registering, setRegistering] = useState(false);
@@ -17,6 +20,14 @@ const Signup = () => {
     email,
     password,
     password_confirmation: passwordAgain,
+  };
+
+  const toggle = e => {
+    if (e.target.checked) {
+      setPasswordType('text');
+    } else if (!e.target.checked) {
+      setPasswordType('password');
+    }
   };
 
   const handleSubmit = e => {
@@ -39,7 +50,7 @@ const Signup = () => {
 
   return (
     <section className="signup">
-      <h3 className="h5">Register here to have Bible.nav priviledges</h3>
+      <h3 className="h4">Register here to have Bible.nav priviledges</h3>
       <form onSubmit={e => handleSubmit(e)}>
         <div className="form-group">
           <input
@@ -59,15 +70,20 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <input
-            type="text"
+            type={passwordType}
             placeholder="Password"
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
+          <p className="show-hide">
+            <small>show password</small>
+            {' '}
+            <input type="checkbox" id="show-password" onClick={e => toggle(e)} />
+          </p>
         </div>
         <div className="form-group">
           <input
-            type="text"
+            type={passwordType}
             placeholder="Type password again"
             value={passwordAgain}
             onChange={e => setPasswordAgain(e.target.value)}
