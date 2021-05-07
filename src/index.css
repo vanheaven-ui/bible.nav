@@ -13,6 +13,16 @@ body {
   margin: 0 auto;
 }
 
+h2 {
+  text-shadow: 1px 1px 2px #fff;
+}
+
+h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #000;
+  font-weight: 700;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -28,6 +38,10 @@ code {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+#root {
+  position: relative;
 }
 
 .dark-overlay {
@@ -97,6 +111,19 @@ button {
 
 .block-btn:hover {
   background-color: #fff;
-  border: 1px solid #EC5200;
   color: #EC5200;
+}
+
+form > .form-group input {
+  border-radius: 20px;
+  border: 1px solid #ec5200;
+  box-shadow: 1px 2px 12px 2px #ec5200;
+  font-size: 16px;
+  padding: 0 0 0 10px;
+  line-height: 25px;
+}
+
+.other-action {
+  margin-top: 20px;
+  color: #fff;
 }
